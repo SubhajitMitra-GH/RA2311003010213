@@ -5,6 +5,13 @@ const app = express();
 
 // 🔐 Automatically using your token from config
 const { token: TOKEN } = require("../logging_middleware/config/token");
+const notificationRoutes = require("./notificationRoutes");
+
+// VERY IMPORTANT: Parse incoming JSON request bodies (needed for Postman POSTs)
+app.use(express.json());
+
+// Mount the new CRUD routes under /api so it doesn't conflict with your external fetching routes
+app.use("/api", notificationRoutes);
 
 // 🔹 Priority mapping
 const getPriority = (type) => {
