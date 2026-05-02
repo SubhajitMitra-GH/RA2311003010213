@@ -20,9 +20,13 @@ const Log = async (stack, level, packageName, message, token) => {
             }
         );
 
-        console.log("Log sent:", response.data);
+        // ✅ return exact API response
+        return response.data;
+
     } catch (err) {
-        console.error("Logging failed:", err.message);
+        return {
+            error: err.response?.data || err.message
+        };
     }
 };
 
